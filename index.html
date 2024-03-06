@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function Header() {
+        return (
+          <header>
+            <h1>구구단 - React</h1>
+          </header>
+        );
+      }
+
+      function Counter() {
+        const [inputNumber, setInputNumber] = React.useState("");
+        const [resultList, setResultList] = React.useState([]);
+
+        function calculate() {
+          const number = Number(inputNumber);
+          const listItems = [];
+
+          for (let i = 1; i < 10; i++) {
+            const result = `${number} x ${i} = ${number * i}`;
+            listItems.push(result);
+          }
+          setResultList(listItems);
+        }
+
+        return (
+          <div>
+            <input
+              type="number"
+              value={inputNumber}
+              onChange={(event) => setInputNumber(event.target.value)}
+            />
+            <button onClick={calculate}>시작</button>
+            <ul>
+              {resultList.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <div id="app">
+            <Header />
+            <Counter />
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>
